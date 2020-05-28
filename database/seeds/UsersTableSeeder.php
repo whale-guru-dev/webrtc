@@ -1,0 +1,41 @@
+<?php
+
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
+
+class UsersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        $password = 'Messenger1!';
+        $admins = [
+            ['admin@test.com', 'Anas', 'admin'],
+            ['admin2@test.com', 'syed', 'admin'],
+            ['admin3@test.com', 'shah', 'admin']
+        ];
+        foreach ($admins as $admin){
+            $user = User::create([
+                'email' => $admin[0],
+                'first' => $admin[1],
+                'last' => $admin[2],
+                'active' => 1,
+                'password' => Hash::make($password)
+            ]);
+            $user->messenger()->create([
+                'slug' => $user->last.'-'.Str::random(4).'-'.Carbon::now()->timestamp,
+            ]);
+        }
+        factory(App\User::class, 15)->create()->each(function ($user){
+            $user->messenger()->create([
+                'slug' => $user->last.'-'.Str::random(4).'-'.Carbon::now()->timestamp
+            ]);
+        });
+    }
+}

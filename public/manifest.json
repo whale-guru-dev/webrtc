@@ -1,0 +1,16 @@
+{
+  "name": "Connected Conference",
+  "short_name": "Tipz",
+  "description": "Messenger",
+  "lang": "en-US",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#282c30",
+  "icons": [
+    {
+      "src": "/images/connectedconference.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    }
+  ]
+}
